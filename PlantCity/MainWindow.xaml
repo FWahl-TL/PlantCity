@@ -1,0 +1,98 @@
+﻿<Window x:Class="PlantCity.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel1="clr-namespace:PlantCity.MVVM.ViewModel" xmlns:MaterialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" mc:Ignorable="d"
+        Height="700" Width="1200"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip"        
+        WindowStyle="None"
+        Title="PlantCity">
+
+    <Window.DataContext>
+        <viewModel1:MainViewModel/>
+    </Window.DataContext>
+
+
+    <Border Background="#111111" CornerRadius="12">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <DockPanel Grid.Row="0" Grid.ColumnSpan="2" Background="#303030" MouseLeftButtonDown="DockPanel_MouseDrag">
+                <Button DockPanel.Dock="Right" Background="Transparent" BorderThickness="0" Name="CloseBtn" Click="CloseBtn_Click">
+                    <MaterialDesign:PackIcon VerticalAlignment="Center" Margin="5" Foreground="White" Kind="Close"></MaterialDesign:PackIcon>
+                </Button>
+                <Button DockPanel.Dock="Right" Background="Transparent" BorderThickness="0" Name="FullScreenBtn" Click="FullScreenBtn_Click">
+                    <MaterialDesign:PackIcon VerticalAlignment="Center" Margin="5" Foreground="White" Kind="Fullscreen"></MaterialDesign:PackIcon>
+                </Button>
+                <Button DockPanel.Dock="Right" Background="Transparent" BorderThickness="0" Name="MinimizeBtn" Click="MinimizeBtn_Click">
+                    <MaterialDesign:PackIcon VerticalAlignment="Center" Margin="5" Foreground="White" Kind="WindowMinimize"></MaterialDesign:PackIcon>
+                </Button>
+                <Image DockPanel.Dock="Left" Source="/Theme/Logo.png" Height="20" Width="20" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                <Label Foreground="White" DockPanel.Dock="Left">PlantCity</Label>
+                <Border></Border>
+            </DockPanel>
+            
+            <Rectangle Width="10" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1">
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#0A0A0A" Offset="0.1"/>
+                        <GradientStop Color="#121212" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Width="10" HorizontalAlignment="Left" Grid.Column="1" Grid.Row="1">
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Color="#0A0A0A" Offset="0.1"/>
+                        <GradientStop Color="#121212" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <StackPanel Grid.Row="1">
+                <RadioButton Content="Dashboard"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             IsChecked="True"
+                             Command="{Binding HomeViewCommand}"/>
+                
+                
+                <RadioButton Content="Settings"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding SettingsViewCommand}"/>
+                
+                
+                <RadioButton Content="About"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding AboutViewCommand}"/>
+                
+            </StackPanel>
+
+            <ContentControl Grid.Row="1" Grid.Column="1"
+                            Margin="10"
+                            Content="{Binding CurrentView}"/>
+
+        </Grid>       
+
+    </Border>
+</Window>
