@@ -165,6 +165,10 @@
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="MVVM\ViewModel\ConnectorViewModel.cs" />
+    <Compile Include="MVVM\View\ConnectorView.xaml.cs">
+      <DependentUpon>ConnectorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="toggleswitch.xaml.cs">
       <DependentUpon>toggleswitch.xaml</DependentUpon>
     </Compile>
@@ -181,6 +185,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MVVM\View\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MVVM\View\ConnectorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
