@@ -1,0 +1,12 @@
+https://api.florianwahl.digital/api/all
+> JSON Body
+	-> Success (int) 0/1
+	-> data
+		> List
+			> 	"id": 1,
+				"measured_value": 0,
+				"time_measured": "2022-12-09T18:18:53.000Z"
+https://api.florianwahl.digital/api/new
+> JSON Body 
+	-> "measured_value" = 1.23 (double)
+	
