@@ -15,7 +15,13 @@ module.exports = {
     });
   },
   newValue: (req, res) => {
-    const measured_value = req.body.measured_value;
+
+    const measured_humidity = req.body.measured_humidity ?? 0.0;
+    const measured_tank = req.body.measured_tank ?? 0.0;
+    const measured_light = req.body.measured_light ?? 0.0;
+    const current_temp = req.body.current_temp ?? 0.0;
+    const current_rain = req.body.current_rain ?? 0.0;
+
     newValue(measured_value, (err, results) =>{
     if (err) {
         console.log(err);
