@@ -1,12 +1,42 @@
-https://api.florianwahl.digital/api/all
-> JSON Body
-	-> Success (int) 0/1
-	-> data
-		> List
-			> 	"id": 1,
-				"measured_value": 0,
-				"time_measured": "2022-12-09T18:18:53.000Z"
-https://api.florianwahl.digital/api/new
-> JSON Body 
-	-> "measured_value" = 1.23 (double)
-	
+http://api.florianwahl.digital/api/all GET Request (https available)
+Return Values:
+{
+    "success": 1,
+    "data": [
+        {
+            "id": 8,
+            "time_measured": "2023-01-20T09:05:33.000Z",
+            "measured_humidity": 0,
+            "measured_tank": 0,
+            "measured_light": 0,
+            "current_temp": 0,
+            "current_rain": 0
+        },
+        {
+            "id": 9,
+            "time_measured": "2023-01-20T09:06:14.000Z",
+            "measured_humidity": 0,
+            "measured_tank": 0,
+            "measured_light": 0,
+            "current_temp": 0,
+            "current_rain": 0
+        }
+    ]
+}
+
+http://api.florianwahl.digital/api/new POST request (no https available for arduino)
+
+JSON Body:
+{
+    "measured_humidity":100.0, 
+    "measured_tank":100.0, 
+    "measured_light":100.0, 
+    "current_temp":100.0, 
+    "current_rain":100.0
+}
+
+Return Values:
+{
+    "success": 1,
+    "message": "DB OK"
+}
