@@ -19,8 +19,8 @@ namespace PlantCity
         {
             Logger.Log("starting components");
             InitializeComponent();
+            ApiHandler.init();
             Logger.Log("Done starting components");
-            Notify.sendSuccess("Hi");
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)

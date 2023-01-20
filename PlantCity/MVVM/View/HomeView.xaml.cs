@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PlantCity.Core;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -18,6 +19,12 @@ namespace PlantCity.MVVM.View
         public HomeView()
         {
             InitializeComponent();
+            Loaded += HomeView_Loaded;
+        }
+
+        private void HomeView_Loaded(object sender, RoutedEventArgs e)
+        {
+            var dataRequest = ApiHandler.getData().Result;
         }
     }
 }
