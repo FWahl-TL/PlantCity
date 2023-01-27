@@ -7,12 +7,43 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              Background="Transparent">
-    <StackPanel Margin="20,0,0,0">
-        <lvc:CartesianChart
+    <ScrollViewer>
+        <StackPanel Margin="20,0,20,0">
+            <Label  Foreground="White" FontSize="18" >Aktuelle Feuchtigkeit</Label>
+            <lvc:CartesianChart
             Height="400"
-            Name="DafaultChart"
+            Name="HumidityChart"
             TooltipPosition="Hidden"
             ZoomMode="X"/>
-    </StackPanel>
+
+            <Label  Foreground="White" FontSize="18" >Aktueller Wasserstand</Label>
+            <lvc:CartesianChart
+            Height="400"
+            Name="TankChart"
+            TooltipPosition="Hidden"
+            ZoomMode="X"/>
+
+            <Label  Foreground="White" FontSize="18" >Licht</Label>
+            <lvc:CartesianChart
+            Height="400"
+            Name="LightChart"
+            TooltipPosition="Hidden"
+            ZoomMode="X"/>
+
+            <Label  Foreground="White" FontSize="18" >Temparatur</Label>
+            <lvc:CartesianChart
+            Height="400"
+            Name="TempChart"
+            TooltipPosition="Hidden"
+            ZoomMode="X"/>
+
+            <Label  Foreground="White" FontSize="18" >Regenverlauf</Label>
+            <lvc:CartesianChart
+            Height="400"
+            Name="RainChart"
+            TooltipPosition="Hidden"
+            ZoomMode="X"/>
+        </StackPanel>
+    </ScrollViewer>
 
 </UserControl>

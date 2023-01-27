@@ -16,6 +16,8 @@ using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
+using SkiaSharp;
 
 namespace PlantCity.MVVM.View
 {
@@ -23,7 +25,15 @@ namespace PlantCity.MVVM.View
     public partial class HomeView : UserControl
     {
         public List<DataResponse> DataPoints { get; set; }
-        public ISeries[] SeriesCollection { get; set; }
+        public ISeries[] HumiditySeries { get; set; }
+        public ISeries[] TankSeries { get; set; }
+        public ISeries[] RainSeries { get; set; }
+        public ISeries[] TempSeries { get; set; }
+        public ISeries[] LightSeries { get; set; }
+
+
+
+        public Axis XAxes { get; set; }
 
         public HomeView()
         {
@@ -46,8 +56,47 @@ namespace PlantCity.MVVM.View
 
             DataPoints = Data.ToObject<List<DataResponse>>();
 
-            SeriesCollection = new ISeries[] { new LineSeries<int> { Values = new int[]{0,1,2,3,4,5,6,7,8, } } };
-            DafaultChart.Series = SeriesCollection;
+            List<double> humidity = new List<double>();
+            List<double> tank = new List<double>();
+            List<double> light = new List<double>();
+            List<double> temp = new List<double>();
+            List<double> rain = new List<double>();
+
+            List<string> labels = new List<string>();
+           
+
+
+            foreach(var item in DataPoints)
+            {
+                humidity.Add(item.measured_humidity);
+                labels.Add(item.time_measured.ToString());
+                tank.Add(item.measured_tank);
+                light.Add(item.measured_light);
+                rain.Add(item.current_rain);
+                temp.Add(item.current_temp);
+            }
+            HumiditySeries = new ISeries[] { new LineSeries<double> { Values = humidity } };
+            LightSeries = new ISeries[] { new LineSeries<double> { Values = light } };
+            RainSeries = new ISeries[] { new LineSeries<double> { Values = rain } };
+            TempSeries = new ISeries[] { new LineSeries<double> { Values = temp } };
+            TankSeries = new ISeries[] { new LineSeries<double> { Values = tank } };
+
+            XAxes = new Axis
+            {
+                Labels = labels,
+                LabelsRotation = 0,
+                SeparatorsPaint = new SolidColorPaint(new SKColor(200, 200, 200)),
+                SeparatorsAtCenter = false,
+                TicksPaint = new SolidColorPaint(new SKColor(35, 35, 35)),
+                TicksAtCenter = true
+            };
+            HumidityChart.Series = HumiditySeries;
+            LightChart.Series = LightSeries;
+            RainChart.Series = RainSeries;
+            TempChart.Series = TempSeries;
+            TankChart.Series = TankSeries;
+
+            HumidityChart.XAxes = new Axis[] { XAxes};
         }
 
         public async Task<string> RestTest()
