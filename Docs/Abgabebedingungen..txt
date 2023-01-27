@@ -1,0 +1,8 @@
+Abgabe des Projekts:
+- Technologie Schema
+- Funktionsbeschreibung
+- Gespeichert
+- Zustandsdiagramme
+- Testfälle
+- Sketche / Code
+- User Stories

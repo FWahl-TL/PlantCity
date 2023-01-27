@@ -1,0 +1,53 @@
+Bisherhige User Stories:
+
+Florian Zeitlicher Verlauf der gemessenen Daten
+Als User möchte ich den zeitlichen Verlauf der gemessenen Daten nachvollziehen können, um Einstellungen zu optimieren und die Daten auswerten zu können.
+
+
+Beleuchtung
+Als User möchte ich die Pflanzen beleuchten und die Beleuchtung des Tag- und Nachtzyklus anpassen, um den Pflanzen optimal Licht zu spenden und das Wachstum zu fördern.
+
+Benachrichtigung auf Mobilgeräten
+Als User möchte ich, dass ich Benachrichtigungen auf mein mobiles Endgerät bekomme, falls Störungen aufkommen oder falls das Wasser für den Tank aufgefüllt werden muss, um die volle Funktionalität gewährleisten und Probleme sofort beseitigen zu können.
+
+
+Wetterdaten beeinflussen Funktion
+Als User möchte ich, dass ein Sensor die restlichen Funktionen beeinflusst (z.B. wenn es regnet soll nicht mehr gegossen und das Licht eingeschaltet werden), um Pflanzen optimal zu pflegen.
+
+
+Josha Desktop App
+Als Endnutzer hätte ich gern die Möglichkeit meine Anlage mit einer App auf meinem PC zu verbinden, um Einstellungen zu setzen und akutelle Infos zu sehen.
+
+
+Josha Einfache Einstellung des Systems am System
+Als User möchte ich das System über einfache Ein- und Ausgabemethoden direkt am System einstellen können.
+
+
+Josha Einfaches Monitoring
+Über eine einfache Desktop-App möchte ich mir aktuelle Werte und deren Verlauf über Zeit zusammengefasst und schön aufbereitet angucken können.
+
+
+Josha Einfache Eistellungen über die Desktop-App
+Als User möchte ich das System zusätzlich über die Desktop-App, in einem einfachen User-Interface, einstellen können.
+
+
+Benjamin's User Stories:
+Aktueller Füllstand
+Als Nutzer möchte ich über den aktuellen Füllstand des Wassertanks informiert werden, damit ich immer weiß ob ich den Tank auffüllen muss.
+
+Aktuelle Feuchtigkeit
+Als Nutzer möchte ich über die Feuchtigkeit der Erde informiert werden, damit ich diese kontrollieren und ggf. die Einstellungen ändern kann.
+
+Einstellungen
+Als Nutzer möchte ich die Einstellungen der Pumpe, der Lampe und der Daten Sammlung ändern können um meinen Pflanzen den besten Wachstum zu ermöglichen.
+
+
+
+Einstellung für Benachrichtigung
+Als Endnutzer hätte ich gern die Benachrichtigungen durch Einstellungen deaktivieren und anpassen können, um das Gerät auf mich anzupassen und nur über wichtige Dinge benachrichtigt werden
+
+Lichteinstellungen
+Als Besitzer hätte ich gern die Möglichkeit über die Desktop app das Licht zu deaktivieren damit es mich Nachts nicht beim Schlafen stört und ich Strom sparen kann
+
+Dev-Infos
+Als Entwickler hätte ich gern einen Zugang in der App zum Seriellen Monitor um Fehler zu erkennen und den aktuellen Status zu überprüfen, um die Funktion zu überwachen und eventuell anpassen zu können
