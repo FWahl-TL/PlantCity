@@ -1,4 +1,7 @@
-﻿using PlantCity.Core;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using PlantCity.Core;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +19,7 @@ namespace PlantCity.MVVM.View
 
     public partial class HomeView : UserControl
     {
+        public List<DataResponse> DataPoints { get; set; }
         public HomeView()
         {
             InitializeComponent();
@@ -24,7 +28,50 @@ namespace PlantCity.MVVM.View
 
         private void HomeView_Loaded(object sender, RoutedEventArgs e)
         {
-            var dataRequest = ApiHandler.getData().Result;
+            GetData();
         }
+
+        public async void GetData()
+        { 
+            var DataContent = await RestTest();
+
+            JObject json = JObject.Parse(DataContent);
+
+            var Data = json.SelectToken("data");
+
+            DataPoints = Data.ToObject<List<DataResponse>>();
+        }
+
+        public async Task<string> RestTest()
+        {
+            
+            RestClient client = new RestClient("https://api.florianwahl.digital/api");
+            var req = new RestRequest("all", Method.Get);
+            req.RequestFormat = RestSharp.DataFormat.Json;
+            try
+            {
+                var res = await client.GetAsync(req);
+
+                return res.Content;
+            }
+            catch (Exception ex)
+            {
+                Notify.sendError(ex.Message);
+                return null;
+            }
+        }
+
+        public class DataResponse
+        {
+            public int id { get; set; }
+            public DateTime time_measured { get; set; }
+            public double measured_humidity { get; set; }
+            public double measured_tank { get; set; }
+            public double measured_light { get; set; }
+            public double current_temp { get; set; }
+            public double current_rain { get; set; }
+        }
+
     }
+
 }

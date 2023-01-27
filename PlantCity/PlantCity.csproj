@@ -127,9 +127,6 @@
     <Reference Include="RestSharp, Version=108.0.3.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.108.0.3\lib\netstandard2.0\RestSharp.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp.Serializers.Newtonsoft.Json, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.Newtonsoft.Json.1.5.1\lib\net452\RestSharp.Serializers.Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="SharpCompress, Version=0.17.1.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpCompress.0.17.1\lib\net45\SharpCompress.dll</HintPath>
     </Reference>
@@ -211,7 +208,6 @@
     <Compile Include="Core\AbortableBackgroundWorker.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\ApiHandler.cs" />
     <Compile Include="Core\Notify.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />

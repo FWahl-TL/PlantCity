@@ -19,7 +19,7 @@ namespace PlantCity
         {
             Logger.Log("starting components");
             InitializeComponent();
-            ApiHandler.init();
+            //ApiHandler.init();
             Logger.Log("Done starting components");
         }
 
