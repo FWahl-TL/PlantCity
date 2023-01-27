@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using CommunityToolkit.Mvvm.ComponentModel;
+using LiveChartsCore;
+using LiveChartsCore.SkiaSharpView;
 
 namespace PlantCity.MVVM.View
 {
@@ -20,6 +23,8 @@ namespace PlantCity.MVVM.View
     public partial class HomeView : UserControl
     {
         public List<DataResponse> DataPoints { get; set; }
+        public ISeries[] SeriesCollection { get; set; }
+
         public HomeView()
         {
             InitializeComponent();
@@ -40,6 +45,9 @@ namespace PlantCity.MVVM.View
             var Data = json.SelectToken("data");
 
             DataPoints = Data.ToObject<List<DataResponse>>();
+
+            SeriesCollection = new ISeries[] { new LineSeries<int> { Values = new int[]{0,1,2,3,4,5,6,7,8, } } };
+            DafaultChart.Series = SeriesCollection;
         }
 
         public async Task<string> RestTest()
