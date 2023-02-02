@@ -3,12 +3,11 @@
 #include "ESP8266HTTPClient.h"
 
 //Wlan
-const char* ssid = "OnePlus"; // Enter your WiFi SSID
-const char* password = "1234asd1234"; // Enter Password
+const char* ssid = "WLAN-697082"; // Enter your WiFi SSID
+const char* password = "rsps2725"; // Enter Password
 
 //Weather Api
-const char* host = "api.openweathermap.org";
-const char* apiKey = "your_API_KEY";
+const char* apiKey = "43b9340612ef48839e0a5d2c33643899";
 const char* city = "Wuppertal";
 const char* units = "metric";
 bool weatherRecieved = true;
@@ -30,6 +29,7 @@ while (WiFi.status() != WL_CONNECTED) {
 delay(500);
 Serial.print("*");
 }
+// WiFi.begin(ssid, password, 0, NULL, true);
 Serial.println("");
 Serial.println("WiFi connection successful");
 Serial.print("IP Address: ");
@@ -52,26 +52,25 @@ void loop() {
     jsonDoc["current_rain"] = current_rain;
     //Send the JSON object to the API
     sendData(jsonDoc);
-    delay(180000); //3 minutes
+    delay(60000); //3 minutes
   }
   else
   {
-    Serial.println("Waiting for Wifi...", httpCode);    
+    Serial.println("Waiting for Wifi...");    
   }
 
 }
 
 void sendData(StaticJsonDocument<200> jsonDoc){
   HTTPClient http;
-  http.begin("api.florianwahl.digital");
+  WiFiClient wifi;
+  http.begin(wifi, "http://api.florianwahl.digital/new");
   http.addHeader("Content-Type", "application/json");
-  int httpCode = http.POST(jsonDoc, jsonDoc.measured_humidity);
+  int httpCode = http.POST(jsonDoc.as<String>());
   if (httpCode > 0) {
   Serial.printf("[HTTP] POST... code: %d\n", httpCode);
-  if (httpCode == HTTP_CODE_OK) {
   String payload = http.getString();
   Serial.println(payload);
-  }
   } else {
   Serial.printf("[HTTP] POST... failed, error: %s\n", http.errorToString(httpCode).c_str());
   }
@@ -93,22 +92,23 @@ double readLight(){
 return 0;
 }
 
-getCurrentWeatherData(){
-  weatherRecieved = true;
-  char* url = String("/data/2.5/weather?q=") + city + "&units=" + units + "&appid=" + apiKey;
-
+void getCurrentWeatherData(){
+  String url = String("http://api.openweathermap.org/data/2.5/weather?q=" + String(city) + "&units=" + String(units) + "&appid=" + String(apiKey));
+  WiFiClient wifi;
+  HTTPClient http;
+  http.begin(wifi, url);
   int httpCode = http.GET();
-  if (httpCode > 0) {
+  if (httpCode = 200) {
     String payload = http.getString();
-    StaticJsonDocument<256> doc;
+    Serial.println(payload);
+    StaticJsonDocument<1024> doc;
     deserializeJson(doc, payload);
     current_temp = doc["main"]["temp"];
-    current_rain = doc["rain"]["h1"];
-    Serial.println("request success Temp: " + current_temp + " rain: " + current_rain);
+    current_rain = doc["rain"]["1h"];
+    Serial.println("request success Temp: " + String(current_temp) + " rain: " + String(current_rain));
   } else {
     Serial.println("Error on HTTP request: " + String(httpCode));
   }
   http.end();
-  delay(60000);
 }
 
