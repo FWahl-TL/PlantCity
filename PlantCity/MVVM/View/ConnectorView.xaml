@@ -11,7 +11,11 @@
             <RowDefinition Height="80"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2">
             <Border Margin="10" CornerRadius="10" Background="#202020" Height="50">
                 <StackPanel Margin="5" Orientation="Horizontal">
                     <Label Foreground="White" VerticalAlignment="Center" FontWeight="Bold" FontSize="14">COM Port:</Label>
@@ -43,6 +47,13 @@
                 </StackPanel>
             </Border>
         </StackPanel>
-            
+        <Border Background="#202020" CornerRadius="10" Grid.Row="1" Grid.Column="1">
+            <StackPanel Orientation="Vertical" >
+                <Label  Foreground="White" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center">Serial Monitor:</Label>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Width="320" Height="520">
+                    <TextBox Name="SerialLog" IsHitTestVisible="False" BorderThickness="0" Background="Transparent" Margin="2" Padding="10" Foreground="White" IsReadOnly="True" MinHeight="500"/>
+                </ScrollViewer>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
