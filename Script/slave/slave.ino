@@ -3,8 +3,8 @@
 #include "ESP8266HTTPClient.h"
 
 //Wlan
-const char* ssid = "WLAN-697082"; // Enter your WiFi SSID
-const char* password = "rsps2725"; // Enter Password
+const char* ssid = "JoshaPixel"; // Enter your WiFi SSID //WLAN-697280
+const char* password = "1234567890"; // Enter Password   //rsps2725
 
 //Weather Api
 const char* apiKey = "43b9340612ef48839e0a5d2c33643899";
@@ -64,10 +64,10 @@ void loop() {
 void sendData(StaticJsonDocument<200> jsonDoc){
   HTTPClient http;
   WiFiClient wifi;
-  http.begin(wifi, "http://api.florianwahl.digital/new");
+  http.begin(wifi, "http://api.florianwahl.digital/api/new");
   http.addHeader("Content-Type", "application/json");
   int httpCode = http.POST(jsonDoc.as<String>());
-  if (httpCode > 0) {
+  if (httpCode = 200) {
   Serial.printf("[HTTP] POST... code: %d\n", httpCode);
   String payload = http.getString();
   Serial.println(payload);
