@@ -9,35 +9,61 @@
              Background="Transparent">
     <ScrollViewer>
         <StackPanel Margin="20,0,20,0">
-            <Label  Foreground="White" FontSize="18" >Aktuelle Feuchtigkeit</Label>
+            <!--Current Values-->
+
+            <Label  Foreground="White" FontSize="18" >Aktuelle Werte</Label>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <lvc:PieChart
+                    Margin="10"
+                    Name="HumidityGauge"
+                    InitialRotation="-225"
+                    MaxAngle="270"
+                    Total="100"
+                    Height="150"
+                    Width="150"
+                    >
+                </lvc:PieChart>
+                <lvc:PieChart
+                    Margin="10"
+                    Name="TankGauge"
+                    InitialRotation="-225"
+                    MaxAngle="270"
+                    Total="100"
+                    Height="150"
+                    Width="150">        
+                </lvc:PieChart>
+            </StackPanel>
+
+            <!--Charts-->
+            <Label  Foreground="White" FontSize="18" >Feuchtigkeit Verlauf</Label>
             <lvc:CartesianChart
             Height="400"
             Name="HumidityChart"
             TooltipPosition="Hidden"
             ZoomMode="X"/>
 
-            <Label  Foreground="White" FontSize="18" >Aktueller Wasserstand</Label>
+            <Label  Foreground="White" FontSize="18" >Wasserstand Verlauf</Label>
             <lvc:CartesianChart
             Height="400"
             Name="TankChart"
             TooltipPosition="Hidden"
             ZoomMode="X"/>
 
-            <Label  Foreground="White" FontSize="18" >Licht</Label>
+            <Label  Foreground="White" FontSize="18" >Licht Verlauf</Label>
             <lvc:CartesianChart
             Height="400"
             Name="LightChart"
             TooltipPosition="Hidden"
             ZoomMode="X"/>
 
-            <Label  Foreground="White" FontSize="18" >Temparatur</Label>
+            <Label  Foreground="White" FontSize="18" >Temparatur Verlauf</Label>
             <lvc:CartesianChart
             Height="400"
             Name="TempChart"
             TooltipPosition="Hidden"
             ZoomMode="X"/>
 
-            <Label  Foreground="White" FontSize="18" >Regenverlauf</Label>
+            <Label  Foreground="White" FontSize="18" >Regen Verlauf</Label>
             <lvc:CartesianChart
             Height="400"
             Name="RainChart"
