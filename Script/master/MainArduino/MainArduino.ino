@@ -1,7 +1,7 @@
 // I2C
 #include <Wire.h>
 
-const uint8_t SLAVE_ADDRESS = 0x08; // I2C address of this device
+const uint8_t SLAVE_ADDRESS = 0x09; // I2C address of this device
 const uint8_t BUFFER_SIZE = 64; // maximum buffer size for incoming messages
 
 char buffer[BUFFER_SIZE]; // buffer to store incoming message
@@ -31,6 +31,12 @@ int lichtDigitalValue = 0;
 double current_rain;
 double current_temp;
 
+//Settings:
+double Feuchtigkeitsgrenze;
+double Lichtgrenze;
+double Pumpdauer;
+String Lichtaktiv; //TRUE or FALSE
+
 void setup() 
 {  
   //Serial Output for testing
@@ -45,9 +51,16 @@ void setup()
   pinMode(lichtPinDigital, INPUT);
 
   //Init I2C
-  Wire.begin(SLAVE_ADDRESS); // initialize I2C communication with the given address
-  Wire.onReceive(receiveEvent); // register the receive event
-  Wire.onRequest(requestEvent); // register the request event
+  //Wire.begin(SLAVE_ADDRESS); // initialize I2C communication with the given address
+  //Wire.onReceive(receiveEvent); // register the receive event
+  //Wire.onRequest(requestEvent); // register the request event
+
+  //Settings preset:
+  
+  Feuchtigkeitsgrenze = 500;
+  Lichtgrenze = 500;
+  Pumpdauer = 500;
+  Lichtaktiv = "TRUE"; //TRUE or FALSE
 }
 
 void loop() 
@@ -68,6 +81,16 @@ void loop()
 
   //Send Back data
 
+  //Handle Settings received
+   if (Serial.available()) {  // check if there are any bytes available on the serial port
+    String input = Serial.readStringUntil('\n');  // read the input from the serial port until a newline character is received
+    input.trim();  // remove any whitespace characters from the input
+    
+    // call the method with the input as argument
+    if (input.length() > 0) {  // check if the input is not empty
+      handleSettingsChange(input);
+    }
+  }
 }
 
 void setAmpelGreen()
@@ -100,11 +123,41 @@ void UpdateSensorValues()
   lichtDigitalValue = digitalRead(lichtPinDigital);
 }
 
+// Handle Property Settings
+void handleSettingsChange(String Input)
+{
+ Serial.println("New Settings requested: " + Input); 
+
+  String* messageContent = splitString(Input,'=');
+  if(sizeof(messageContent) != 2) return;
+  
+    if(messageContent[1] == NULL) return;
+  if(messageContent[0] == "Feuchtigkeitsgrenze")
+  {
+    Feuchtigkeitsgrenze =  tryParseDouble(messageContent[1]);
+  }
+  if(messageContent[0] == "Lichtgrenze")
+  {
+    Lichtgrenze =  tryParseDouble(messageContent[1]);
+  }
+  if(messageContent[0] == "Pumpdauer")
+  {
+    Pumpdauer =  tryParseDouble(messageContent[1]);
+  }
+  if(messageContent[0] == "Lichtaktiv")
+  {
+    Lichtaktiv =  messageContent[1];
+  }
+}
+
+
+
+
 // I2C
 
 void sendDataToSlave(int humidity, int tank, int light)
 {
-  String message = humitidy + ";" + tank + ";" + light; //build message string
+  String message = String(humidity) + ";" + String(tank) + ";" + String(light); //build message string
   uint8_t message_length = message.length() + 1; // calculate the message length
   
   Wire.beginTransmission(SLAVE_ADDRESS); // start transmission to the slave device
@@ -128,13 +181,14 @@ void requestWeatherData()
 
     String* split = splitString(res, ';');
 
-    string s_temp = split[0];
-    string s_rain = split[1];
+    String s_temp = split[0];
+    String s_rain = split[1];
 
     current_temp = tryParseDouble(s_temp);
     current_rain = tryParseDouble(s_rain);    
     
     Serial.print("Received Weather Data: " + c); 
+  }
 }
 
 //Helper Methods
@@ -162,7 +216,7 @@ String* splitString(String input, char delimiter) {
       }
     }
   }
-
+  
   return tokens;
 }
 
