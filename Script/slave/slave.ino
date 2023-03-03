@@ -20,7 +20,7 @@ double current_temp = 0;
 double current_rain = 0;
 
 //I2C Connection
-const uint8_t MASTER_ADDRESS = 0x08; // I2C address of this device
+const uint8_t SLAVE_ADDRESS = 0x08; // I2C address of this device
 const uint8_t BUFFER_SIZE = 64; // maximum buffer size for incoming messages
 char buffer[BUFFER_SIZE]; // buffer to store incoming message
 uint8_t buffer_index = 0; // current index in the buffer
@@ -29,7 +29,7 @@ void setup() {
 Serial.begin(9600);
 
 //I2C Connection
-Wire.begin(MASTER_ADDRESS); // initialize I2C communication with the given address
+Wire.begin(SLAVE_ADDRESS); // initialize I2C communication with the given address
 Wire.onReceive(receiveEvent); // register the receive event
 Wire.onRequest(requestEvent); // register the request event
 
@@ -83,13 +83,13 @@ void sendData(){
 void getSensorValues(String message){
   String* values = handleRecieved(message);
 
-  if(values.Count() == 3){
+  if(sizeof(values) == 3){
     measured_humidity = tryParseDouble(values[0]);
     measured_tank = tryParseDouble(values[1]);
     measured_light = tryParseDouble(values[2]);
   }
   else{
-    Serial.println("Antwort vom Master ist nicht vollständig")
+    Serial.println("Antwort vom Master ist nicht vollständig");
     measured_humidity = 0;
     measured_tank = 0;
     measured_light = 0;
@@ -103,7 +103,7 @@ String* handleRecieved(String input) {
   for (int i = 0; i < input.length(); i++) {
     char c = input.charAt(i);
 
-    if (c != ";") {
+    if (c != ';') {
       if (tokens[token_index].length() < 15) {
         tokens[token_index] += c;
       }
@@ -194,6 +194,7 @@ void requestEvent() {
     }
     else if(message_length){
       getSensorValues(message);
+      sendData();
     }
 
 //example antwort:
