@@ -49,6 +49,7 @@ void setup()
   pinMode(ampelGreen, OUTPUT);
   pinMode(ampelYellow, OUTPUT);
   pinMode(ampelRed, OUTPUT);
+  pinMode(pumpePinAnalog, OUTPUT); 
 
   //Init I2C
   Wire.begin(SLAVE_ADDRESS); // initialize I2C communication with the given address
@@ -94,9 +95,9 @@ void watering(){
 }
 
 void activatePump(){
-  analogWrite(pumpePinAnalog, 255);
+  digitalWrite(pumpePinAnalog, HIGH);
   delay(wateringLength);
-  analogWrite(pumpePinAnalog, 0);
+  digitalWrite(pumpePinAnalog, LOW);
 }
 
 void checkTank(){
@@ -143,7 +144,7 @@ void UpdateSensorValues()
 
 void sendDataToSlave()
 {
-  String message = String(current_humitidy) + ";" + String(current_tank) + ";" + String(current_light); //build message string
+  String message = String(current_humidity) + ";" + String(current_tank) + ";" + String(current_light); //build message string
   uint8_t message_length = message.length() + 1; // calculate the message length
   
   Wire.beginTransmission(SLAVE_ADDRESS); // start transmission to the slave device
