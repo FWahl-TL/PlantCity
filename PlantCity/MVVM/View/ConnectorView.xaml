@@ -56,9 +56,25 @@
             </StackPanel>
         </Border>
         <StackPanel Orientation="Vertical" Grid.Row="1">
-            <Label  Foreground="White" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center">Settings:
-            </Label>
-
+            <Label  Foreground="White" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center">Settings:</Label>
+            <StackPanel Orientation="Horizontal">
+                <Label VerticalAlignment="Center" Foreground="White" FontSize="14" HorizontalAlignment="Center">Feuchtigkeitsgrenze:</Label>
+                <ComboBox Width="70" Margin="5,0,5,0" Name="CBFeuchtigkeit" Foreground="White" VerticalContentAlignment="Center">
+                    <ComboBoxItem>100</ComboBoxItem>
+                    <ComboBoxItem>200</ComboBoxItem>
+                    <ComboBoxItem>300</ComboBoxItem>
+                    <ComboBoxItem>400</ComboBoxItem>
+                    <ComboBoxItem>500</ComboBoxItem>
+                    <ComboBoxItem>1000</ComboBoxItem>
+                </ComboBox>
+                <Button Height="30" Width="100" Name="SaveFeuchtigkeit" Content="Start" BorderThickness="0" Background="#303030" Foreground="White" VerticalContentAlignment="Center" Margin="5" Click="SaveFeuchtigkeit_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

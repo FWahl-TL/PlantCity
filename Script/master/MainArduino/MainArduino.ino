@@ -69,11 +69,12 @@ void loop()
 
   //Get Sensor data  
   UpdateSensorValues();
-  Serial.println(sensor1Value);
-  Serial.println(sensor2Value);
-  Serial.println(lichtAnalogValue);
-  Serial.println(lichtDigitalValue);
-  Serial.println("---");
+  //Serial.println("---");
+  //Serial.println(sensor1Value);
+  //Serial.println(sensor2Value);
+  //Serial.println(lichtAnalogValue);
+  //Serial.println(lichtDigitalValue);
+  //Serial.println("---");
 
   //Get API data
 
@@ -129,10 +130,15 @@ void handleSettingsChange(String Input)
  Serial.println("New Settings requested: " + Input); 
 
   String* messageContent = splitString(Input,'=');
-  if(sizeof(messageContent) != 2) return;
+  if(sizeof(messageContent) != 2) 
+  {
+    Serial.println("Error Parsing Settings Command");
+  }
+  Serial.println("1: " + messageContent[0]);
+  Serial.println("2 : " + messageContent[1]);
   
     if(messageContent[1] == NULL) return;
-  if(messageContent[0] == "Feuchtigkeitsgrenze")
+  if(messageContent[0] == "FG")
   {
     Feuchtigkeitsgrenze =  tryParseDouble(messageContent[1]);
   }
@@ -148,6 +154,13 @@ void handleSettingsChange(String Input)
   {
     Lichtaktiv =  messageContent[1];
   }
+  Serial.println("---");
+  Serial.println("New Settings:");
+  Serial.println(Feuchtigkeitsgrenze);
+  Serial.println(Lichtgrenze);
+  Serial.println(Pumpdauer);
+  Serial.println(Lichtaktiv); 
+  Serial.println("---");
 }
 
 
