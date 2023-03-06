@@ -8,24 +8,33 @@ char buffer[BUFFER_SIZE]; // buffer to store incoming message
 uint8_t buffer_index = 0; // current index in the buffer
 
 
+//Feuchtigkeitssensor
+int sensorPin1 = 0; //Erde
+int sensorPin2 = 3; //Wassertank
+
+//Lichtsensor
+int lichtPinAnalog = 4;
+
+//LED
+int ledPinAnalog = 1;
+
+//Pumpe
+int pumpePinAnalog = 2;
+double wateringLength = 0;
+
 // Ampel Inputs:
 int ampelGreen = 11;
 int ampelYellow = 12;
 int ampelRed = 13;
+int ampelColor = 0;
 
-//Feuchtigkeitssensor
-int sensorPin1 = 4;
-int sensorPin2 = 5;
+double current_light = 0;
+double current_humidity = 0;
+double current_tank = 0;
 
-int sensor1Value = 0;
-int sensor2Value = 0;
-
-//Lichtsensor
-int lichtPinAnalog = 3;
-int lichtPinDigital = 10;
-
-int lichtAnalogValue = 0;
-int lichtDigitalValue = 0;
+//Grenzwerte
+double dry = 100;
+double wet = 500;
 
 //API Data
 double current_rain;
@@ -46,9 +55,7 @@ void setup()
   pinMode(ampelGreen, OUTPUT);
   pinMode(ampelYellow, OUTPUT);
   pinMode(ampelRed, OUTPUT);
-
-  //Licht
-  pinMode(lichtPinDigital, INPUT);
+  pinMode(pumpePinAnalog, OUTPUT); 
 
   //Init I2C
   //Wire.begin(SLAVE_ADDRESS); // initialize I2C communication with the given address
@@ -69,16 +76,14 @@ void loop()
 
   //Get Sensor data  
   UpdateSensorValues();
-  //Serial.println("---");
-  //Serial.println(sensor1Value);
-  //Serial.println(sensor2Value);
-  //Serial.println(lichtAnalogValue);
-  //Serial.println(lichtDigitalValue);
-  //Serial.println("---");
 
   //Get API data
+  requestWeatherData();
 
   //Do Gießen Logic
+  watering();
+  checkTank();
+  checkLight();
 
   //Send Back data
 
@@ -92,36 +97,70 @@ void loop()
       handleSettingsChange(input);
     }
   }
+  Serial.println(current_humidity);
+  Serial.println(current_tank);
+  Serial.println(current_light);
+  Serial.println("---");
+}
+
+void watering(){
+  if(current_humidity <= dry){
+    activatePump();
+    if(ampelColor == 0){
+      setAmpelYellow();
+    }
+  }
+  else if(current_humidity <= wet){
+    if(ampelColor == 1){
+      setAmpelGreen();
+    }
+  }
+}
+
+void activatePump(){
+  digitalWrite(pumpePinAnalog, HIGH);
+  delay(wateringLength);
+  digitalWrite(pumpePinAnalog, LOW);
+}
+
+void checkTank(){
+  if(current_tank > 0){
+    digitalWrite(ampelRed, LOW);
+  }
+  else{
+    digitalWrite(ampelRed, HIGH);
+  }
+}
+
+void checkLight(){
+  if(current_light >= 700){
+    //ledstrip an    
+  }
+  else {
+    //ledstrip aus
+  }
 }
 
 void setAmpelGreen()
 {
    digitalWrite(ampelGreen, HIGH);
    digitalWrite(ampelYellow, LOW);
-   digitalWrite(ampelRed, LOW);
+   ampelColor = 0;
 }
 
 void setAmpelYellow()
 {
    digitalWrite(ampelGreen, LOW);
    digitalWrite(ampelYellow, HIGH);
-   digitalWrite(ampelRed, LOW);
-}
-
-void setAmpelRed()
-{
-   digitalWrite(ampelGreen, LOW);
-   digitalWrite(ampelYellow, LOW);
-   digitalWrite(ampelRed, HIGH);
+   ampelColor = 1;
 }
 
 void UpdateSensorValues()
 {
-  sensor1Value = analogRead(sensorPin1);
-  sensor2Value = analogRead(sensorPin2);
+  current_humidity = analogRead(sensorPin1);
+  current_tank = analogRead(sensorPin2);
 
-  lichtAnalogValue = analogRead(lichtPinAnalog);
-  lichtDigitalValue = digitalRead(lichtPinDigital);
+  current_light = analogRead(lichtPinAnalog);
 }
 
 // Handle Property Settings
@@ -168,9 +207,10 @@ void handleSettingsChange(String Input)
 
 // I2C
 
-void sendDataToSlave(int humidity, int tank, int light)
+void sendDataToSlave()
 {
   String message = String(humidity) + ";" + String(tank) + ";" + String(light); //build message string
+  
   uint8_t message_length = message.length() + 1; // calculate the message length
   
   Wire.beginTransmission(SLAVE_ADDRESS); // start transmission to the slave device
@@ -200,7 +240,7 @@ void requestWeatherData()
     current_temp = tryParseDouble(s_temp);
     current_rain = tryParseDouble(s_rain);    
     
-    Serial.print("Received Weather Data: " + c); 
+    Serial.print("Received Weather Data: " + c);  
   }
 }
 
