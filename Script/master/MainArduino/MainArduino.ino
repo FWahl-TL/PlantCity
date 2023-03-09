@@ -1,7 +1,7 @@
 // I2C
 #include <Wire.h>
 
-const uint8_t SLAVE_ADDRESS = 0x09; // I2C address of this device
+#define SLAVE_ADDRESS 0x09 // I2C address of this device
 const uint8_t BUFFER_SIZE = 64; // maximum buffer size for incoming messages
 
 char buffer[BUFFER_SIZE]; // buffer to store incoming message
@@ -58,9 +58,9 @@ void setup()
   pinMode(pumpePinAnalog, OUTPUT); 
 
   //Init I2C
-  //Wire.begin(SLAVE_ADDRESS); // initialize I2C communication with the given address
-  //Wire.onReceive(receiveEvent); // register the receive event
-  //Wire.onRequest(requestEvent); // register the request event
+  Wire.begin(SLAVE_ADDRESS); // initialize I2C communication with the given address
+  // Wire.onReceive(receiveEvent); // register the receive event
+  // Wire.onRequest(requestEvent); // register the request event
 
   //Settings preset:
   
@@ -209,7 +209,7 @@ void handleSettingsChange(String Input)
 
 void sendDataToSlave()
 {
-  String message = String(humidity) + ";" + String(tank) + ";" + String(light); //build message string
+  String message = String(current_humidity) + ";" + String(current_tank) + ";" + String(current_light); //build message string
   
   uint8_t message_length = message.length() + 1; // calculate the message length
   
@@ -223,25 +223,28 @@ void requestWeatherData()
 {
   Wire.requestFrom(SLAVE_ADDRESS, 32); // request a maximum of 32 bytes from the slave device
 
+  String res = "";
+
   while (Wire.available()) {
     char c = Wire.read();
   
     if (c == '\0') { // end of string
       break;
     }
-
-    String res = String(c);
-
-    String* split = splitString(res, ';');
-
-    String s_temp = split[0];
-    String s_rain = split[1];
-
-    current_temp = tryParseDouble(s_temp);
-    current_rain = tryParseDouble(s_rain);    
-    
-    Serial.print("Received Weather Data: " + c);  
+    else{
+      res += c;
+    }
   }
+
+  String* split = splitString(res, ';');
+
+  String s_temp = split[0];
+  String s_rain = split[1];
+
+  current_temp = tryParseDouble(s_temp);
+  current_rain = tryParseDouble(s_rain);    
+  
+  Serial.print("Received Weather Data: " + res);
 }
 
 //Helper Methods
