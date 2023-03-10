@@ -20,7 +20,6 @@ int ledPinDigital = 1;
 
 //Pumpe
 int pumpePinAnalog = 2;
-double wateringLength = 0;
 
 // Ampel Inputs:
 int ampelGreen = 11;
@@ -31,10 +30,6 @@ int ampelColor = 0;
 double current_light = 0;
 double current_humidity = 0;
 double current_tank = 0;
-
-//Grenzwerte
-double dry = 100;
-double wet = 500;
 
 //API Data
 double current_rain;
@@ -105,13 +100,13 @@ void loop()
 }
 
 void watering(){
-  if(current_humidity <= dry){
-    activatePump();
+  if(current_humidity <= Feuchtigkeitsgrenze){
     if(ampelColor == 0){
       setAmpelYellow();
+      activatePump();
     }
   }
-  else if(current_humidity <= wet){
+  else if(current_humidity >= Feuchtigkeitsgrenze){
     if(ampelColor == 1){
       setAmpelGreen();
     }
@@ -120,7 +115,7 @@ void watering(){
 
 void activatePump(){
   digitalWrite(pumpePinAnalog, HIGH);
-  delay(wateringLength);
+  delay(Pumpdauer);
   digitalWrite(pumpePinAnalog, LOW);
 }
 
@@ -134,7 +129,7 @@ void checkTank(){
 }
 
 void checkLight(){
-  if(current_light >= 700){
+  if(current_light >= Lichtgrenze){
     digitalWrite(ledPinDigital, HIGH);
   }
   else {
