@@ -13,10 +13,10 @@ int sensorPin1 = 0; //Erde
 int sensorPin2 = 3; //Wassertank
 
 //Lichtsensor
-int lichtPinAnalog = 4;
+int lichtPinDigital = 4;
 
 //LED
-int ledPinAnalog = 1;
+int ledPinDigital = 1;
 
 //Pumpe
 int pumpePinAnalog = 2;
@@ -55,7 +55,8 @@ void setup()
   pinMode(ampelGreen, OUTPUT);
   pinMode(ampelYellow, OUTPUT);
   pinMode(ampelRed, OUTPUT);
-  pinMode(pumpePinAnalog, OUTPUT); 
+  pinMode(pumpePinAnalog, OUTPUT);
+  pinMode(ledPinDigital, OUTPUT)
 
   //Init I2C
   Wire.begin(SLAVE_ADDRESS); // initialize I2C communication with the given address
@@ -134,10 +135,10 @@ void checkTank(){
 
 void checkLight(){
   if(current_light >= 700){
-    //ledstrip an    
+    digitalWrite(ledPinDigital, HIGH);
   }
   else {
-    //ledstrip aus
+    digitalWrite(ledPinDigital, LOW);
   }
 }
 
