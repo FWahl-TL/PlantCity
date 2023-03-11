@@ -4,8 +4,8 @@
 #include <Wire.h>
 
 //Wlan
-const char* ssid = "WLAN-697280"; // Enter your WiFi SSID //WLAN-697280 //JoshaPixel
-const char* password = "rsps2725"; // Enter Password   //rsps2725 //1234567890
+const char* ssid = "OnePlus 7T Pro"; // Enter your WiFi SSID //WLAN-697280 //JoshaPixel //OnePlus 7T Pro
+const char* password = "1234567890"; // Enter Password   //rsps2725 //1234567890 //1234567890 
 
 //Weather Api
 const char* apiKey = "43b9340612ef48839e0a5d2c33643899";
