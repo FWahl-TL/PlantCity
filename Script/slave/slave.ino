@@ -164,6 +164,7 @@ void getCurrentWeatherData(){
 void sendCurrentWeatherData(){
   getCurrentWeatherData();
   String message = BuildMessage();
+  Wire.write(message.c_str(), message.length());
 }
 
 String BuildMessage(){
@@ -182,23 +183,20 @@ void receiveEvent(int num_bytes) {
 
 void requestEvent() {
   uint8_t message_length = buffer[0]; // read the message length from the buffer
-  
+
   if (message_length > 0 && buffer_index == message_length) { // check if the entire message has been received
     buffer[buffer_index] = '\0'; // terminate the string
     
     String message(buffer + 1); // create a String from the buffer, starting at index 1 (after the message length byte)
     
-//TODO: IF 
-    if(message_length = 0){
+    if(message_length == 0){
       sendCurrentWeatherData();
     }
-    else if(message_length){
+    else if(message_length > 0){
       getSensorValues(message);
       sendData();
     }
 
-//example antwort:
-    Wire.write(message.c_str(), message_length); // send the message back to the master device
     buffer_index = 0; // reset the buffer index
   }
 }

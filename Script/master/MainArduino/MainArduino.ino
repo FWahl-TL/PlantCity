@@ -1,7 +1,7 @@
 // I2C
 #include <Wire.h>
 
-#define SLAVE_ADDRESS 0x09 // I2C address of this device
+const uint8_t SLAVE_ADDRESS = 0x08;
 const uint8_t BUFFER_SIZE = 64; // maximum buffer size for incoming messages
 
 char buffer[BUFFER_SIZE]; // buffer to store incoming message
@@ -51,7 +51,7 @@ void setup()
   pinMode(ampelYellow, OUTPUT);
   pinMode(ampelRed, OUTPUT);
   pinMode(pumpePinAnalog, OUTPUT);
-  pinMode(ledPinDigital, OUTPUT)
+  pinMode(ledPinDigital, OUTPUT);
 
   //Init I2C
   Wire.begin(SLAVE_ADDRESS); // initialize I2C communication with the given address
@@ -100,7 +100,7 @@ void loop()
 }
 
 void watering(){
-  if(current_humidity <= Feuchtigkeitsgrenze){
+  if(current_humidity < Feuchtigkeitsgrenze){
     if(ampelColor == 0){
       setAmpelYellow();
       activatePump();
@@ -156,7 +156,7 @@ void UpdateSensorValues()
   current_humidity = analogRead(sensorPin1);
   current_tank = analogRead(sensorPin2);
 
-  current_light = analogRead(lichtPinAnalog);
+  current_light = analogRead(lichtPinDigital);
 }
 
 // Handle Property Settings
