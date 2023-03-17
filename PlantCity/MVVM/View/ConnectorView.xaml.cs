@@ -145,5 +145,23 @@ namespace PlantCity.MVVM.View
             string message = "FG=" + (CBFeuchtigkeit.SelectedItem as ComboBoxItem).Content;
             WriteToSerial(message);
         }
+
+        private void SaveLicht_Click(object sender, RoutedEventArgs e)
+        {
+            string message = "LG=" + (CBLicht.SelectedItem as ComboBoxItem).Content;
+            WriteToSerial(message);
+        }
+
+        private void SavePumpdauer_Click(object sender, RoutedEventArgs e)
+        {
+            string message = "PD=" + (CBPumpdauer.SelectedItem as ComboBoxItem).Content;
+            WriteToSerial(message);
+        }
+
+        private void SaveLichtJN_Click(object sender, RoutedEventArgs e)
+        {
+            string message = "LJN=" + (CBLichtJN.SelectedItem as ComboBoxItem).Content;
+            WriteToSerial(message);
+        }
     }
 }

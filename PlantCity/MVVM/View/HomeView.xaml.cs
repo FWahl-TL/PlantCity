@@ -111,7 +111,7 @@ namespace PlantCity.MVVM.View
             .WithBackgroundInnerRadius(75)
             .WithBackground(new SolidColorPaint(new SKColor(100, 181, 246, 90)))
             .WithLabelsPosition(PolarLabelsPosition.ChartCenter)
-            .AddValue(currentHumidity / 5, "Feuchtigkeit", SKColors.BlueViolet, SKColors.LightBlue) // defines the value and the color 
+            .AddValue(Math.Round(currentHumidity), "Feuchtigkeit", SKColors.BlueViolet, SKColors.LightBlue) // defines the value and the color 
             .BuildSeries();
 
             TankGaugeSeries = new GaugeBuilder()
@@ -120,7 +120,7 @@ namespace PlantCity.MVVM.View
             .WithBackgroundInnerRadius(75)
             .WithBackground(new SolidColorPaint(new SKColor(100, 181, 246, 90)))
             .WithLabelsPosition(PolarLabelsPosition.ChartCenter)
-            .AddValue(currentTank, "Füllstand", SKColors.BlueViolet, SKColors.LightBlue) // defines the value and the color 
+            .AddValue(Math.Round(currentTank), "Füllstand", SKColors.BlueViolet, SKColors.LightBlue) // defines the value and the color 
             .BuildSeries();
 
             HumidityGauge.Series = HumidityGaugeSeries;
