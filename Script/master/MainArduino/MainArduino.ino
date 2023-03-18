@@ -9,22 +9,22 @@ uint8_t buffer_index = 0; // current index in the buffer
 
 
 //Feuchtigkeitssensor
-int sensorPin1 = 0; //Erde
-int sensorPin2 = 3; //Wassertank
+int sensorPin1 = 1; //Erde
+int sensorPin2 = 2; //Wassertank
 
 //Lichtsensor
-int lichtPinDigital = 4;
+int lichtPinDigital = 0;
 
 //LED
-int ledPinDigital = 1;
+int ledPinDigital = 6;
 
 //Pumpe
-int pumpePinAnalog = 2;
+int pumpePinDigital = 2;
 
 // Ampel Inputs:
-int ampelGreen = 11;
-int ampelYellow = 12;
-int ampelRed = 13;
+int ampelGreen = 5;
+int ampelYellow = 4;
+int ampelRed = 3;
 int ampelColor = 0;
 
 double current_light = 0;
@@ -50,7 +50,7 @@ void setup()
   pinMode(ampelGreen, OUTPUT);
   pinMode(ampelYellow, OUTPUT);
   pinMode(ampelRed, OUTPUT);
-  pinMode(pumpePinAnalog, OUTPUT);
+  pinMode(pumpePinDigital, OUTPUT);
   pinMode(ledPinDigital, OUTPUT);
 
   //Init I2C
@@ -114,9 +114,9 @@ void watering(){
 }
 
 void activatePump(){
-  digitalWrite(pumpePinAnalog, HIGH);
+  digitalWrite(pumpePinDigital, HIGH);
   delay(Pumpdauer);
-  digitalWrite(pumpePinAnalog, LOW);
+  digitalWrite(pumpePinDigital, LOW);
 }
 
 void checkTank(){
