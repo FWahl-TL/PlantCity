@@ -55,5 +55,77 @@
                 </ScrollViewer>
             </StackPanel>
         </Border>
+        <StackPanel Orientation="Vertical" Grid.Row="1">
+            <Label  Foreground="White" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center">Settings:</Label>
+            <StackPanel
+                Orientation="Horizontal">
+                <Label Width="200" VerticalAlignment="Center" Foreground="White" FontSize="14" HorizontalAlignment="Center">Feuchtigkeitsgrenze:</Label>
+                <ComboBox Width="70" Margin="5,0,5,0" Name="CBFeuchtigkeit" Foreground="White" VerticalContentAlignment="Center">
+                    <ComboBoxItem>100</ComboBoxItem>
+                    <ComboBoxItem>200</ComboBoxItem>
+                    <ComboBoxItem>300</ComboBoxItem>
+                    <ComboBoxItem>400</ComboBoxItem>
+                    <ComboBoxItem>500</ComboBoxItem>
+                    <ComboBoxItem>1000</ComboBoxItem>
+                </ComboBox>
+                <Button Height="30" Width="100" Name="SaveFeuchtigkeit" Content="Save" BorderThickness="0" Background="#303030" Foreground="White" VerticalContentAlignment="Center" Margin="5" Click="SaveFeuchtigkeit_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label VerticalAlignment="Center" Foreground="White" FontSize="14" HorizontalAlignment="Center" Width="200" >Lichtgrenze:</Label>
+                <ComboBox Width="70" Margin="5,0,5,0" Name="CBLicht" Foreground="White" VerticalContentAlignment="Center">
+                    <ComboBoxItem>100</ComboBoxItem>
+                    <ComboBoxItem>200</ComboBoxItem>
+                    <ComboBoxItem>300</ComboBoxItem>
+                    <ComboBoxItem>400</ComboBoxItem>
+                    <ComboBoxItem>500</ComboBoxItem>
+                    <ComboBoxItem>1000</ComboBoxItem>
+                </ComboBox>
+                <Button Height="30" Width="100" Name="SaveLicht" Content="Save" BorderThickness="0" Background="#303030" Foreground="White" VerticalContentAlignment="Center" Margin="5" Click="SaveLicht_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label VerticalAlignment="Center" Foreground="White" FontSize="14" HorizontalAlignment="Center" Width="200" >Pumpdauer:</Label>
+                <ComboBox Width="70" Margin="5,0,5,0" Name="CBPumpdauer" Foreground="White" VerticalContentAlignment="Center">
+                    <ComboBoxItem>100</ComboBoxItem>
+                    <ComboBoxItem>200</ComboBoxItem>
+                    <ComboBoxItem>300</ComboBoxItem>
+                    <ComboBoxItem>400</ComboBoxItem>
+                    <ComboBoxItem>500</ComboBoxItem>
+                    <ComboBoxItem>1000</ComboBoxItem>
+                </ComboBox>
+                <Button Height="30" Width="100" Name="SavePumpdauer" Content="Save" BorderThickness="0" Background="#303030" Foreground="White" VerticalContentAlignment="Center" Margin="5" Click="SavePumpdauer_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label VerticalAlignment="Center" Foreground="White" FontSize="14" HorizontalAlignment="Center" Width="200" >Licht Ja/Nein:</Label>
+                <ComboBox Width="70" Margin="5,0,5,0" Name="CBLichtJN" Foreground="White" VerticalContentAlignment="Center">
+                    <ComboBoxItem>FALSE</ComboBoxItem>
+                    <ComboBoxItem>TRUE</ComboBoxItem>
+                </ComboBox>
+                <Button Height="30" Width="100" Name="SaveLichtJN" Content="Save" BorderThickness="0" Background="#303030" Foreground="White" VerticalContentAlignment="Center" Margin="5" Click="SaveLichtJN_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

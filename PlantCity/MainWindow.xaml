@@ -71,12 +71,12 @@
                              Command="{Binding HomeViewCommand}"/>
                 
                 
-                <RadioButton Content="Settings"
+                <!--<RadioButton Content="Settings"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding SettingsViewCommand}"/>
+                             Command="{Binding SettingsViewCommand}"/>-->
 
                 <RadioButton Content="Connector"
                              Height="50"

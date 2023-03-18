@@ -126,6 +126,7 @@ namespace PlantCity.MVVM.View
         {
             Notify.sendSuccess("Stopped");
             SetErrorStatus("Stopped");
+            SerialConnection.Close();
         }
 
         public void SetStatus(string msg)
@@ -137,6 +138,30 @@ namespace PlantCity.MVVM.View
         {
             StatusText.Foreground = Brushes.Red;
             StatusText.Content = msg;
+        }
+
+        private void SaveFeuchtigkeit_Click(object sender, RoutedEventArgs e)
+        {
+            string message = "FG=" + (CBFeuchtigkeit.SelectedItem as ComboBoxItem).Content;
+            WriteToSerial(message);
+        }
+
+        private void SaveLicht_Click(object sender, RoutedEventArgs e)
+        {
+            string message = "LG=" + (CBLicht.SelectedItem as ComboBoxItem).Content;
+            WriteToSerial(message);
+        }
+
+        private void SavePumpdauer_Click(object sender, RoutedEventArgs e)
+        {
+            string message = "PD=" + (CBPumpdauer.SelectedItem as ComboBoxItem).Content;
+            WriteToSerial(message);
+        }
+
+        private void SaveLichtJN_Click(object sender, RoutedEventArgs e)
+        {
+            string message = "LJN=" + (CBLichtJN.SelectedItem as ComboBoxItem).Content;
+            WriteToSerial(message);
         }
     }
 }

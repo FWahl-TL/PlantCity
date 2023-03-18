@@ -18,6 +18,7 @@ using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
+using LiveChartsCore.Measure;
 
 namespace PlantCity.MVVM.View
 {
@@ -31,7 +32,8 @@ namespace PlantCity.MVVM.View
         public ISeries[] TempSeries { get; set; }
         public ISeries[] LightSeries { get; set; }
 
-
+        public IEnumerable<ISeries> HumidityGaugeSeries { get; set; }
+        public IEnumerable<ISeries> TankGaugeSeries { get; set; }
 
         public Axis XAxes { get; set; }
 
@@ -96,7 +98,34 @@ namespace PlantCity.MVVM.View
             TempChart.Series = TempSeries;
             TankChart.Series = TankSeries;
 
+
+
             HumidityChart.XAxes = new Axis[] { XAxes};
+
+            double currentHumidity = humidity[humidity.Count - 1];
+            double currentTank = tank[tank.Count - 1];
+
+            HumidityGaugeSeries = new GaugeBuilder()
+            .WithLabelsSize(50)
+            .WithInnerRadius(75)
+            .WithBackgroundInnerRadius(75)
+            .WithBackground(new SolidColorPaint(new SKColor(100, 181, 246, 90)))
+            .WithLabelsPosition(PolarLabelsPosition.ChartCenter)
+            .AddValue(Math.Round(currentHumidity), "Feuchtigkeit", SKColors.BlueViolet, SKColors.LightBlue) // defines the value and the color 
+            .BuildSeries();
+
+            TankGaugeSeries = new GaugeBuilder()
+            .WithLabelsSize(50)
+            .WithInnerRadius(75)
+            .WithBackgroundInnerRadius(75)
+            .WithBackground(new SolidColorPaint(new SKColor(100, 181, 246, 90)))
+            .WithLabelsPosition(PolarLabelsPosition.ChartCenter)
+            .AddValue(Math.Round(currentTank), "Füllstand", SKColors.BlueViolet, SKColors.LightBlue) // defines the value and the color 
+            .BuildSeries();
+
+            HumidityGauge.Series = HumidityGaugeSeries;
+            TankGauge.Series = TankGaugeSeries;
+
         }
 
         public async Task<string> RestTest()
