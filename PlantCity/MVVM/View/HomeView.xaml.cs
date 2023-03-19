@@ -77,11 +77,11 @@ namespace PlantCity.MVVM.View
                 rain.Add(item.current_rain);
                 temp.Add(item.current_temp);
             }
-            HumiditySeries = new ISeries[] { new LineSeries<double> { Values = humidity } };
-            LightSeries = new ISeries[] { new LineSeries<double> { Values = light } };
-            RainSeries = new ISeries[] { new LineSeries<double> { Values = rain } };
-            TempSeries = new ISeries[] { new LineSeries<double> { Values = temp } };
-            TankSeries = new ISeries[] { new LineSeries<double> { Values = tank } };
+            HumiditySeries = new ISeries[] { new LineSeries<double> { Values = humidity, GeometrySize = 0 } };
+            LightSeries = new ISeries[] { new LineSeries<double> { Values = light, GeometrySize = 0 } };
+            RainSeries = new ISeries[] { new LineSeries<double> { Values = rain, GeometrySize = 0 } };
+            TempSeries = new ISeries[] { new LineSeries<double> { Values = temp, GeometrySize = 0 } };
+            TankSeries = new ISeries[] { new LineSeries<double> { Values = tank, GeometrySize = 0 } };
 
             XAxes = new Axis
             {
